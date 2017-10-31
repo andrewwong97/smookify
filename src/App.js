@@ -3,8 +3,6 @@ import './App.css';
 import ReactPlayer from 'react-player';
 import * as Youtube from 'youtube-search';
 
-const SpotifyWebApi = require('spotify-web-api-js');
-
 const tracks = require('./tracks.json');
 
 class App extends Component {
