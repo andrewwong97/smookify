@@ -20,6 +20,23 @@ class App extends Component {
 		}
 	}
 
+	// adapted from https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
+	isMobile() { 
+	 if( navigator.userAgent.match(/Android/i)
+	 || navigator.userAgent.match(/webOS/i)
+	 || navigator.userAgent.match(/iPhone/i)
+	 || navigator.userAgent.match(/iPad/i)
+	 || navigator.userAgent.match(/iPod/i)
+	 || navigator.userAgent.match(/BlackBerry/i)
+	 || navigator.userAgent.match(/Windows Phone/i)
+	 ){
+	    return true;
+	  }
+	 else {
+	    return false;
+	  }
+	}
+
 	randomTrack() {
 		const track_strings = tracks.items.map((i) => `${i.track.name}, ${i.track.artists[0].name}`);
 		const random_track = track_strings[Math.floor(Math.random() * track_strings.length)];
@@ -30,14 +47,14 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		// const token = this.getSpotifyAccessToken();
-		// var spHeaders = new Headers({
-		// 	Authorization: `Bearer ${token}`
-		// });
+		if (this.isMobile()) {
+			alert('Smookify is currently not supported for mobile devices. Please open this link in a desktop browser (works best in Chrome)');
+		}
 
-		// fetch(`https://api.spotify.com/v1/users/${this.state.user_id}/playlists/${this.state.playlist_id}/tracks`, 
-		// 	{method: 'GET', mode: 'no-cors', headers: spHeaders})
-		// 	.then((data) => console.log(data));
+		var isChrome = !!window.chrome && !!window.chrome.webstore;
+		if (!isChrome) {
+			alert('Hey there! If Smookify doesn\'t play sound on your browser, consider using Google Chrome.');
+		}
 
 		const r = this.randomTrack();
 
@@ -82,7 +99,9 @@ class App extends Component {
 						className="hideReactPlayer"
 						ref={this.ref} 
 						url={this.getVideoUrl()} 
-						playing 
+						playing
+						playsinline
+						config={{ attributes: { autoPlay: true } }}
 					/>
 
 					<div className="control">
