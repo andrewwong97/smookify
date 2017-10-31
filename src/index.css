@@ -16,4 +16,39 @@ body {
 
 .Player h1 {
 	color: #efefef;
+	font-size: 48pt;
+}
+
+.hideReactPlayer {
+	display: none !important;
+}
+
+.control {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-flow: row wrap;
+}
+
+.showSong, .nextSong {
+	display: block;
+	margin-right: 20px;
+	font-weight: 300;
+	padding: 25px;
+	border: transparent;
+	border-radius: 50px;
+	background: #1e3c72;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to right, #2a5298, #1e3c72);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to right, #2a5298, #1e3c72); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	color: #fff;
+	font-size: 20pt;
+	transition: box-shadow 150ms ease-in;;
+}
+
+.showSong:hover, .nextSong:hover {
+	box-shadow: 0 0 9px rgba(42, 82, 152, .7);
+}
+
+.showSong:focus, .showSong:active, .nextSong:focus, .nextSong:active {
+	outline: none;
 }
