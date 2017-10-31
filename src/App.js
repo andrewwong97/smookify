@@ -48,7 +48,7 @@ class App extends Component {
 			key: this.state.youtube_api_key
 		};
 
-		Youtube(`${r} lyrics`, options, (err, data) => this.setState({yt_results: data}));
+		Youtube(`${r} lyrics song`, options, (err, data) => this.setState({yt_results: data}));
 	}
 
 	getSpotifyAccessToken() {
@@ -61,12 +61,13 @@ class App extends Component {
 			.then((response) => console.log(response));
 	}
 
-	getVideoUrl() {
-		return this.state.yt_results ? this.state.yt_results[0].link : 'https://www.youtube.com/watch?v=2Oo8QzDHimQ';
+	randomStartTime() {
+		// random 0 to 60 + random 20 second offset
+		return Math.floor(Math.random()*60)+Math.floor(Math.random()*20);
 	}
 
-	randomSeek() {
-		this.player.seekTo(Math.random());
+	getVideoUrl() {
+		return this.state.yt_results ? this.state.yt_results[0].link + '?start=' + this.randomStartTime() + 's': 'https://www.youtube.com/watch?v=2Oo8QzDHimQ';
 	}
 
 	ref = player => {
@@ -78,12 +79,12 @@ class App extends Component {
 			<div className="App">
 				<div className="Player">
 					<h1>Smookify</h1>
-					
+										
 					<ReactPlayer
 						className="hideReactPlayer"
 						ref={this.ref} 
 						url={this.getVideoUrl()} 
-						onStart={this.randomSeek.bind(this)} playing 
+						playing 
 					/>
 
 					<div className="control">
