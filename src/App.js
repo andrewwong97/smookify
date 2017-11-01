@@ -63,7 +63,7 @@ class App extends Component {
 			key: this.state.youtube_api_key
 		};
 
-		Youtube(`${r} lyrics song`, options, (err, data) => this.setState({yt_results: data}));
+		Youtube(`${r} vevo`, options, (err, data) => this.setState({yt_results: data}));
 	}
 
 	getSpotifyAccessToken() {
