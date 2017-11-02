@@ -35,6 +35,7 @@ body {
 	margin-right: 20px;
 	font-weight: 300;
 	padding: 25px;
+	margin-bottom: 25px;
 	border: transparent;
 	border-radius: 50px;
 	background: #1e3c72;  /* fallback for old browsers */

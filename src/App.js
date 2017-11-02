@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import ReactPlayer from 'react-player';
 import * as Youtube from 'youtube-search';
 
@@ -52,14 +51,12 @@ class App extends Component {
 			alert('Hey there! If Smookify doesn\'t play sound on your browser, consider using Google Chrome.');
 		}
 
-		const r = this.randomTrack();
-
 		var options = {
 			maxResults: 5,
 			key: this.state.youtube_api_key
 		};
 
-		Youtube(`${r} vevo`, options, (err, data) => this.setState({yt_results: data}));
+		Youtube(`${this.randomTrack()} vevo`, options, (err, data) => this.setState({yt_results: data}));
 	}
 
 	randomStartTime() {
