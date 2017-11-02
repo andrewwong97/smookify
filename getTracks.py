@@ -3,6 +3,11 @@ import json
 import requests
 # import re
 
+secret = {'client_id': 'c5055ea6d2674aebbace5e5993054428',
+			'client_secret': '53381846b4d2462e93284d9a164b104e',
+			'user_id': '12171649066',
+			'playlist_id': '63et1p7vh9i9yByEGIuDl4'}
+
 ''' Run getTracks.py to get weekly track data '''
 def get_weekly_tracks():
 	''' Update weekly track list for Smookify. Returns JSON tracks string '''

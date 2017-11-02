@@ -9,10 +9,6 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			'client_id': 'c5055ea6d2674aebbace5e5993054428',
-			'client_secret': '53381846b4d2462e93284d9a164b104e',
-			'user_id': '12171649066',
-			'playlist_id': '63et1p7vh9i9yByEGIuDl4',
 			'youtube_api_key': 'AIzaSyDyWrh8zgTOogyLDHzz2YjX0A2MYyCPZ2E',
 			yt_results: null,
 			'showSongName': false,
@@ -64,16 +60,6 @@ class App extends Component {
 		};
 
 		Youtube(`${r} vevo`, options, (err, data) => this.setState({yt_results: data}));
-	}
-
-	getSpotifyAccessToken() {
-		var myHeaders = new Headers({
-			'Authorization': 'Basic ' + btoa(`${this.state.client_id}:${this.state.client_secret}`),
-			'Content-Type': 'application/x-www-form-urlencoded'
-		});
-		
-		fetch('https://accounts.spotify.com/api/token', { method: 'POST', mode: 'no-cors', headers: myHeaders, data: JSON.stringify({grant_type: 'client_credentials'}) })
-			.then((response) => console.log(response));
 	}
 
 	randomStartTime() {
