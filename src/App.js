@@ -13,11 +13,12 @@ class App extends Component {
 			yt_results: null,
 			'showSongName': false,
 			'current_song': null,
+			'playing': true
 		}
 	}
 
 	// adapted from https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
-	isMobile() { 
+	isMobile() {
 	 if( navigator.userAgent.match(/Android/i)
 	 || navigator.userAgent.match(/webOS/i)
 	 || navigator.userAgent.match(/iPhone/i)
@@ -43,6 +44,11 @@ class App extends Component {
 	}
 
 	componentDidMount() {
+		document.addEventListener('keyup', (e) => {
+			if(e.keyCode === 32) {
+				this.setState({playing: !this.state.playing})
+			}
+		})
 		if (this.isMobile()) {
 			alert('Smookify is currently not supported for mobile devices. Please open this link in a desktop browser (works best in Chrome)');
 		}
@@ -78,6 +84,9 @@ class App extends Component {
 	}
 
 	render() {
+		const {
+			playing
+		} = this.state
 		return (
 			<div className="App">
 				<div className="Player">
@@ -85,13 +94,13 @@ class App extends Component {
 					<h1>Week 11</h1>
 
 					{ this.state.timer }
-										
+
 					<ReactPlayer
 						className="hideReactPlayer"
-						ref={this.ref} 
-						url={this.getVideoUrl()} 
-						playing
+						ref={this.ref}
+						url={this.getVideoUrl()}
 						playsinline
+						playing={playing}
 						config={{ attributes: { autoPlay: true } }}
 					/>
 
@@ -101,11 +110,19 @@ class App extends Component {
 					</div>
 
 					<h1>{this.state.showSongName ? this.state.current_song : ''}</h1>
-					
+
 				</div>
 			  </div>
 		);
 	}
 }
+
+function nextSongViaKeyPress(e) {
+	if(e.keyCode === 37 || e.keyCode === 39) {
+		window.location.reload(true)
+	}
+}
+
+window.addEventListener('keyup', nextSongViaKeyPress)
 
 export default App;
