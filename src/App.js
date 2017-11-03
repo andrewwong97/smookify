@@ -3,12 +3,13 @@ import ReactPlayer from 'react-player';
 import * as Youtube from 'youtube-search';
 
 const tracks = require('./tracks.json');
+const youtube_api_key = require('./keys.json');
 
 class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			'youtube_api_key': 'AIzaSyDyWrh8zgTOogyLDHzz2YjX0A2MYyCPZ2E',
+			'youtube_api_key': youtube_api_key.youtube,
 			yt_results: null,
 			'showSongName': false,
 			'current_song': null,
@@ -81,6 +82,7 @@ class App extends Component {
 			<div className="App">
 				<div className="Player">
 					<h1>Smookify</h1>
+					<h1>Week 11</h1>
 
 					{ this.state.timer }
 										
