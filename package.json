@@ -10,7 +10,6 @@
     "react-dom": "^16.0.0",
     "react-player": "^0.25.3",
     "react-scripts": "1.0.15",
-    "spotify-web-api-js": "^0.22.1",
     "youtube-search": "^1.0.10"
   },
   "scripts": {
@@ -19,7 +18,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "python getTracks.py && gh-pages -d build"
   },
   "homepage": "https://andrewwong97.github.io/smookify",
   "devDependencies": {
