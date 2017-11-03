@@ -11,7 +11,7 @@ class App extends Component {
 			'youtube_api_key': 'AIzaSyDyWrh8zgTOogyLDHzz2YjX0A2MYyCPZ2E',
 			yt_results: null,
 			'showSongName': false,
-			'current_song': null
+			'current_song': null,
 		}
 	}
 
@@ -59,6 +59,10 @@ class App extends Component {
 		Youtube(`${this.randomTrack()} vevo`, options, (err, data) => this.setState({yt_results: data}));
 	}
 
+	componentWillUnmount() {
+		clearInterval(this.timer)
+	}
+
 	randomStartTime() {
 		// random 0 to 60 + random 20 second offset
 		return Math.floor(Math.random()*60)+Math.floor(Math.random()*20);
@@ -77,6 +81,8 @@ class App extends Component {
 			<div className="App">
 				<div className="Player">
 					<h1>Smookify</h1>
+
+					{ this.state.timer }
 										
 					<ReactPlayer
 						className="hideReactPlayer"
