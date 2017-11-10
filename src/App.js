@@ -9,11 +9,11 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			'youtube_api_key': youtube_api_key.youtube,
 			yt_results: null,
 			'showSongName': false,
 			'current_song': null,
-			'playing': true
+			'playing': true,
+			'current_index': 0
 		}
 	}
 
@@ -38,7 +38,7 @@ class App extends Component {
 		const index = Math.floor(Math.random() * tracks.length);
 		const random_track = tracks[index];
 
-		this.setState({current_song: random_track});
+		this.setState({current_song: random_track, current_index: index });
 
 		return random_track;
 	}
@@ -60,18 +60,18 @@ class App extends Component {
 
 		var options = {
 			maxResults: 5,
-			key: this.state.youtube_api_key
+			key: youtube_api_key.youtube
 		};
 
 		const track = this.randomTrack();
 		
-		Youtube(`${track.title} ${track.artist} vevo`, options, (err, data) => this.setState({yt_results: data}));
+		Youtube(`${track.title} ${track.artist} lyrics music video`, options, (err, data) => this.setState({yt_results: data}));
 
 	}
 
 	randomStartTime() {
-		// random 0 to 60 + random 20 second offset
-		return Math.floor(Math.random()*60)+Math.floor(Math.random()*20);
+		// random 0 to 60 + random 35 second offset
+		return Math.floor(Math.random()*60)+Math.floor(Math.random()*35);
 	}
 
 	getVideoUrl() {
@@ -88,6 +88,12 @@ class App extends Component {
 			` ${song.genre}: "${song.title}," ${song.artist} (${song.year})` : ``;
 	}
 
+	// render tip for some random index
+	renderTip() {
+		return this.state.current_index === tracks.length / 2 ?
+		 <h2 style={{'fontWeight': '300', 'color': 'white', 'fontSize': '24pt'}}>Tip: Use arrow keys to navigate between songs.</h2> : '';
+	}
+
 	render() {
 		const {
 			playing
@@ -95,11 +101,7 @@ class App extends Component {
 		return (
 			<div className="App">
 				<div className="Player">
-					<h1>Smookify</h1>
-					<h1>Week 11</h1>
-
-					{ this.state.timer }
-
+					<h1>Smookify <span style={{'fontWeight': '300'}}>|</span> Week 11</h1>
 					<ReactPlayer
 						className="hideReactPlayer"
 						ref={this.ref}
@@ -109,12 +111,16 @@ class App extends Component {
 						config={{ attributes: { autoPlay: true } }}
 					/>
 
+					{ this.state.current_song ? '' : <div className="loading-pulse"></div> }
+
 					<div className="control">
 						<button className="showSong" onClick={() => this.setState({showSongName: !this.state.showSongName})}>Click to Show Song Name</button>
 						<button className="nextSong" onClick={() => window.location.reload(true)}>Next Song</button>
 					</div>
 
-					<h2 style={{'font-weight': '300', 'color': 'white', 'font-size': '24pt'}}>{this.renderCurrentSong()}</h2>
+					{ this.renderTip() }
+
+					<h2 style={{'fontWeight': '300', 'color': 'white', 'fontSize': '24pt'}}>{this.renderCurrentSong()}</h2>
 
 				</div>
 			  </div>
