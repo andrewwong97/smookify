@@ -65,7 +65,7 @@ class App extends Component {
 
 		const track = this.randomTrack();
 		
-		Youtube(`${track.title} ${track.artist}`, options, (err, data) => this.setState({yt_results: data}));
+		Youtube(`${track.title} ${track.artist} vevo`, options, (err, data) => this.setState({yt_results: data}));
 
 	}
 
