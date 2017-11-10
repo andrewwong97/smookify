@@ -31,7 +31,7 @@ if __name__ == '__main__':
 		# weekly_tracks = get_weekly_tracks()
 
 		data = []
-		txt = open('week11.txt','r').readlines()
+		txt = open('rep.txt','r').readlines()
 		for i in range(0, len(txt), 4):
 			data.append({
 				'year': txt[i].strip(), 

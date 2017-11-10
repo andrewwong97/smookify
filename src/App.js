@@ -101,7 +101,7 @@ class App extends Component {
 		return (
 			<div className="App">
 				<div className="Player">
-					<h1>Smookify <span style={{'fontWeight': '300'}}>|</span> Week 11</h1>
+					<h1>Smookify <span style={{'fontWeight': '300'}}>|</span> Week 12</h1>
 					<ReactPlayer
 						className="hideReactPlayer"
 						ref={this.ref}
@@ -111,12 +111,12 @@ class App extends Component {
 						config={{ attributes: { autoPlay: true } }}
 					/>
 
-					{ this.state.current_song ? '' : <div className="loading-pulse"></div> }
-
 					<div className="control">
 						<button className="showSong" onClick={() => this.setState({showSongName: !this.state.showSongName})}>Click to Show Song Name</button>
 						<button className="nextSong" onClick={() => window.location.reload(true)}>Next Song</button>
 					</div>
+
+					{ this.state.current_song == null ? <div className="loading-pulse"></div> : '' }
 
 					{ this.renderTip() }
 
