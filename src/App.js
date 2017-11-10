@@ -85,8 +85,7 @@ class App extends Component {
 	renderCurrentSong() {
 		const song = this.state.current_song;
 		return this.state.showSongName ? 
-			`${song.title} ${song.artist} 
-			${song.year} ${song.genre}` : ``;
+			` ${song.genre}: "${song.title}," ${song.artist} (${song.year})` : ``;
 	}
 
 	render() {
