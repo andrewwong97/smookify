@@ -35,8 +35,8 @@ class App extends Component {
 	}
 
 	randomTrack() {
-		const track_strings = tracks.items.map((i) => `${i.track.name}, ${i.track.artists[0].name}`);
-		const random_track = track_strings[Math.floor(Math.random() * track_strings.length)];
+		const index = Math.floor(Math.random() * tracks.length);
+		const random_track = tracks[index];
 
 		this.setState({current_song: random_track});
 
@@ -63,11 +63,10 @@ class App extends Component {
 			key: this.state.youtube_api_key
 		};
 
-		Youtube(`${this.randomTrack()} vevo`, options, (err, data) => this.setState({yt_results: data}));
-	}
+		const track = this.randomTrack();
+		
+		Youtube(`${track.title} ${track.artist}`, options, (err, data) => this.setState({yt_results: data}));
 
-	componentWillUnmount() {
-		clearInterval(this.timer)
 	}
 
 	randomStartTime() {
@@ -76,11 +75,18 @@ class App extends Component {
 	}
 
 	getVideoUrl() {
-		return this.state.yt_results ? this.state.yt_results[0].link + '?start=' + this.randomStartTime() + 's': 'https://www.youtube.com/watch?v=2Oo8QzDHimQ';
+		return this.state.yt_results ? this.state.yt_results[0].link + '?start=' + this.randomStartTime() + 's': '';
 	}
 
 	ref = player => {
 		this.player = player;
+	}
+
+	renderCurrentSong() {
+		const song = this.state.current_song;
+		return this.state.showSongName ? 
+			`${song.title} ${song.artist} 
+			${song.year} ${song.genre}` : ``;
 	}
 
 	render() {
@@ -109,7 +115,7 @@ class App extends Component {
 						<button className="nextSong" onClick={() => window.location.reload(true)}>Next Song</button>
 					</div>
 
-					<h1>{this.state.showSongName ? this.state.current_song : ''}</h1>
+					<h2 style={{'font-weight': '300', 'color': 'white', 'font-size': '24pt'}}>{this.renderCurrentSong()}</h2>
 
 				</div>
 			  </div>

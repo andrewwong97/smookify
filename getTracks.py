@@ -25,14 +25,20 @@ def get_weekly_tracks():
 
 	return p.content
 
-
-# def find_next_year(start, s):
-# 	''' start index, string s '''
-# 	s = s[start:]
-# 	p = re.search('(\([0-9][0-9]*)\)',s)
-# 	return p.group(0).replace('(', '').replace(')', '')
-
-
 if __name__ == '__main__':
 	with open('src/tracks.json', 'w') as f:
-		f.write(get_weekly_tracks())
+		# 	f.write(get_weekly_tracks()
+		# weekly_tracks = get_weekly_tracks()
+
+		data = []
+		txt = open('week11.txt','r').readlines()
+		for i in range(0, len(txt), 4):
+			data.append({
+				'year': txt[i].strip(), 
+				'genre': txt[i+1].strip(),
+				'title': txt[i+2].strip(),
+				'artist': txt[i+3].strip()
+			})
+		f.write(json.dumps(data))
+
+
