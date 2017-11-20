@@ -18,7 +18,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "python getTracks.py && gh-pages -d build"
+    "deploy": "python getTracks.py && gh-pages -d build",
+    "dev": "react-scripts start"
   },
   "homepage": "https://andrewwong97.github.io/smookify",
   "devDependencies": {

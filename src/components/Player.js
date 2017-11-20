@@ -2,20 +2,26 @@ import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import * as Youtube from 'youtube-search';
 
+const tracks = require('../tracks.json');
+const youtube_api_key = require('../keys.json');
 
 
-const tracks = require('./tracks.json');
-const youtube_api_key = require('./keys.json');
+const createEmptyBooleanArray = () => {
+    let a = [];
+    for (let i = 0; i < tracks.length; i++) a.push(0);
+    return a;
+};
 
 export default class Player extends Component {
     constructor(props) {
         super(props);
         this.state = {
             yt_results: null,
-            'showSongName': false,
+            showSongName: false,
             'current_song': null,
-            'playing': true,
-            'current_index': 0
+            playing: true,
+            finished: false,
+            'played_history': createEmptyBooleanArray()
         }
 
         window.addEventListener('keyup', this.nextSongViaKeyPress);
@@ -34,11 +40,6 @@ export default class Player extends Component {
             }
         });
 
-        let isChrome = !!window.chrome && !!window.chrome.webstore;
-        if (!isChrome) {
-            alert('Hey there! If Smookify doesn\'t play sound on your browser, consider using Google Chrome.');
-        }
-
         const options = {
             maxResults: 5,
             key: youtube_api_key.youtube
@@ -46,13 +47,47 @@ export default class Player extends Component {
 
         const track = this.randomTrack();
 
-        Youtube(`${track.title} ${track.artist} lyrics music video`, options, (err, data) => this.setState({yt_results: data}));
+        Youtube(`${track.title} ${track.artist} official`, options, (err, data) => this.setState({yt_results: data}));
 
     }
 
+    /**
+     * Check if all the songs have been played
+     * @returns {boolean} True if quiz finished, False otherwise
+     */
+    quizIsFinished() {
+        for (let i = 0; i < this.state.played_history.length; i++) {
+            if (i === 0) return false;
+        }
+        return true; // all 1's
+    }
+
+    /**
+     * Pull random track from rep list. Update played history.
+     * @returns current song object {genre, name, artist, title}
+     */
+    randomTrack() {
+        let played = false;
+        let current_index = 0;
+        while (!played) {
+            current_index = Math.floor(Math.random() * tracks.length);
+            if (this.state.played_history[current_index] === 0) {
+                played = true;
+                let tmp_history = this.state.played_history;
+                tmp_history[current_index] = 1;
+                this.setState({ played_history: tmp_history });
+            }
+        }
+
+        const current_song = tracks[current_index];
+
+        this.setState({ current_song });
+
+        return current_song;
+    }
+
     randomStartTime() {
-        // random 0 to 90 + random 35 second offset
-        return Math.floor(Math.random()*90)+Math.floor(Math.random()*35);
+        return Math.floor(Math.random()*60)+Math.floor(Math.random()*30);
     }
 
     getVideoUrl() {
@@ -66,7 +101,7 @@ export default class Player extends Component {
     songDetails() {
         const song = this.state.current_song;
         return this.state.showSongName ?
-            ` ${song.genre}: "${song.title}," ${song.artist} (${song.year})` : ``;
+            ` ${song.genre}: "${song.title}" ${song.artist} (${song.year})` : ``;
     }
 
     // render arrow keys tip
@@ -75,17 +110,17 @@ export default class Player extends Component {
             <h2 style={{'fontWeight': '300', 'color': 'white', 'fontSize': '24pt'}}>Tip: Use arrow keys to navigate between songs.</h2> : '';
     }
 
-    randomTrack() {
-        const current_index = Math.floor(Math.random() * tracks.length);
-        const current_song = tracks[current_index];
-
-        this.setState({ current_song, current_index });
-
-        return current_song;
+    nextSong() {
+        if (!this.quizIsFinished()) {
+            const current_song = this.randomTrack();
+            this.setState({ current_song });
+        } else {
+            this.setState({ playing: false, finished: true })
+        }
     }
 
     render() {
-        const { playing } = this.state
+        const { playing } = this.state;
         return (
             <div className="Player">
                 <h1>Smookify <span style={{'fontWeight': '300'}}>|</span> Week 13</h1>
@@ -100,10 +135,12 @@ export default class Player extends Component {
 
                 <div className="control">
                     <button className="showSong" onClick={() => this.setState({showSongName: !this.state.showSongName})}>Click to Show Song Name</button>
-                    <button className="nextSong" onClick={() => window.location.reload(true)}>Next Song</button>
+                    <button className="nextSong" onClick={this.nextSong}>Next Song</button>
                 </div>
 
                 { this.renderTip() }
+
+                { this.state.finished ? 'Quiz finished' : '' }
 
                 <h2 style={{'fontWeight': '300', 'color': 'white', 'fontSize': '24pt'}}>{this.songDetails()}</h2>
 
