@@ -1,9 +1,9 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Quicksand', 'Helvetica Neue', 'Arial', sans-serif;
   text-align: center;
-  background: #3f3f3f;
+  background: #efefef;
 }
 
 .Player {
@@ -15,8 +15,13 @@ body {
 }
 
 .Player h1 {
-	color: #efefef;
 	font-size: 48pt;
+	background: #4b6cb7;  /* fallback for old browsers */
+	background: -webkit-linear-gradient(to bottom, #4b6cb7, #182848);  /* Chrome 10-25, Safari 5.1-6 */
+	background: linear-gradient(to bottom, #4b6cb7, #182848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	font-weight: 200;
 }
 
 .hideReactPlayer {
@@ -37,7 +42,7 @@ body {
 	padding: 25px;
 	margin-bottom: 25px;
 	border: transparent;
-	border-radius: 50px;
+	border-radius: 10px;
 	background: #1e3c72;  /* fallback for old browsers */
 	background: -webkit-linear-gradient(to right, #2a5298, #1e3c72);  /* Chrome 10-25, Safari 5.1-6 */
 	background: linear-gradient(to right, #2a5298, #1e3c72); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
