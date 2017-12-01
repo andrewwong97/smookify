@@ -28,20 +28,18 @@ export default class Player extends Component {
       playedHistory: createEmptyBooleanArray() // array of played indices of tracks
     }
 
-    window.addEventListener('keyup', this.nextSongViaKeyPress);
     this.clickNextSong = this.clickNextSong.bind(this);
-  }
-
-  nextSongViaKeyPress(e) {
-    if(e.keyCode === 37 || e.keyCode === 39) {
-      window.location.reload(true)
-    }
+    this.nextSongViaKeyPress = this.nextSongViaKeyPress.bind(this);
   }
 
   componentDidMount() {
     document.addEventListener('keyup', (e) => {
       if(e.keyCode === 32) {
-        this.setState({playing: !this.state.playing})
+        this.setState({showSongName: !this.state.showSongName})
+      }
+
+      if (e.keyCode === 39) {
+        this.clickNextSong();
       }
     });
 
@@ -121,11 +119,17 @@ export default class Player extends Component {
     }
   }
 
-  showPlayedSongs() {
-    for (let i = 0; i < this.state.playedHistory.length; i++) {
-
+  nextSongViaKeyPress(e) {
+    if(e.charCode === 39 || e.keyCode === 39) {
+      this.clickNextSong();
     }
   }
+
+  // showPlayedSongs() {
+  //   for (let i = 0; i < this.state.playedHistory.length; i++) {
+  //
+  //   }
+  // }
 
   render() {
     const { playing } = this.state;
@@ -143,7 +147,7 @@ export default class Player extends Component {
 
         <div className="control">
           <button className="showSong" onClick={() => this.setState({showSongName: !this.state.showSongName})}>Click to Show Song Name</button>
-          <button className="nextSong" onClick={this.clickNextSong}>Next Song</button>
+          <button className="nextSong" onClick={this.clickNextSong} onKeyPress={this.nextSongViaKeyPress}>Next Song</button>
         </div>
 
         { this.state.finished ? 'Quiz finished' : '' }
