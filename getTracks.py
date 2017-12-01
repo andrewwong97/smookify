@@ -34,8 +34,8 @@ if __name__ == '__main__':
 		txt = open('rep.txt','r').readlines()
 		for i in range(0, len(txt), 4):
 			data.append({
-				'year': txt[i].strip(), 
-				'genre': txt[i+1].strip(),
+				'genre': txt[i].strip(),
+				'year': txt[i+1].strip(),
 				'title': txt[i+2].strip(),
 				'artist': txt[i+3].strip()
 			})

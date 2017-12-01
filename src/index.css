@@ -58,3 +58,9 @@ body {
 .showSong:focus, .showSong:active, .nextSong:focus, .nextSong:active {
 	outline: none;
 }
+
+.songDetails {
+	font-weight: 300;
+	color: #1e3c72;
+	font-size: 24pt;
+}
