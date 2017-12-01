@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import Player from './Player';
+import Player from './components/Player';
 
 class App extends Component {
 	constructor(props) {
 		super(props);
         if (this.isMobile()) {
             alert('Smookify is currently not supported for mobile devices. Please open this link in a desktop browser (works best in Chrome/Firefox)');
+        }
+        let isChrome = !!window.chrome && !!window.chrome.webstore;
+        if (!isChrome) {
+            alert('Hey there! If Smookify doesn\'t play sound on your browser, consider using Google Chrome.');
         }
 	}
 
@@ -29,7 +33,5 @@ class App extends Component {
 		);
 	}
 }
-
-
 
 export default App;
