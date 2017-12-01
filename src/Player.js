@@ -72,7 +72,7 @@ export default class Player extends Component {
     // render arrow keys tip
     renderTip() {
         return this.state.current_index === tracks.length / 2 ?
-            <h2 style={{'fontWeight': '300', 'color': 'white', 'fontSize': '24pt'}}>Tip: Use arrow keys to navigate between songs.</h2> : '';
+            <h2 className="songDetails">Tip: Use arrow keys to navigate between songs.</h2> : '';
     }
 
     randomTrack() {
@@ -105,7 +105,7 @@ export default class Player extends Component {
 
                 { this.renderTip() }
 
-                <h2 style={{'fontWeight': '300', 'color': 'white', 'fontSize': '24pt'}}>{this.songDetails()}</h2>
+                <h2 className="songDetails">{this.songDetails()}</h2>
 
             </div>
         )
