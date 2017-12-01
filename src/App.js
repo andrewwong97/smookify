@@ -29,6 +29,7 @@ class App extends Component {
 		return (
 			<div className="App">
 				<Player/>
+        <img src="Control.png" alt="" className="tips"/>
 			  </div>
 		);
 	}

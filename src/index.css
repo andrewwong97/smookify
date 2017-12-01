@@ -64,3 +64,9 @@ body {
 	color: #1e3c72;
 	font-size: 24pt;
 }
+
+.tips {
+	position: relative;
+	bottom: 0;
+	top: 85vh;
+}

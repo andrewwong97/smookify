@@ -14,18 +14,18 @@ const createEmptyBooleanArray = () => {
 
 const randomStartTime = () => {
   return Math.floor(Math.random()*60)+Math.floor(Math.random()*30);
-}
+};
 
 export default class Player extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      yt_results: null,
+      ytResults: null,
       showSongName: false,
-      'current_song': null,
+      currentSong: null,
       playing: true,
       finished: false,
-      'played_history': createEmptyBooleanArray()
+      playedHistory: createEmptyBooleanArray() // array of played indices of tracks
     }
 
     window.addEventListener('keyup', this.nextSongViaKeyPress);
@@ -57,12 +57,12 @@ export default class Player extends Component {
       maxResults: 5,
       key: youtube_api_key.youtube
     };
-    this.setState({ current_song: track });
-    Youtube(`${track.title} ${track.artist} official`, options, (err, data) => this.setState({yt_results: data}));
+    this.setState({ currentSong: track });
+    Youtube(`${track.title} ${track.artist} official`, options, (err, data) => this.setState({ytResults: data}));
   }
 
   getVideoUrl() {
-    return this.state.yt_results ? this.state.yt_results[0].link + '?start=' + randomStartTime() + 's': '';
+    return this.state.ytResults ? this.state.ytResults[0].link + '?start=' + randomStartTime() + 's': '';
   }
 
   /**
@@ -70,7 +70,7 @@ export default class Player extends Component {
    * @returns {boolean} True if quiz finished, False otherwise
    */
   quizIsFinished() {
-    for (let i = 0; i < this.state.played_history.length; i++) {
+    for (let i = 0; i < this.state.playedHistory.length; i++) {
       if (i === 0) {
         return false
       }
@@ -87,11 +87,11 @@ export default class Player extends Component {
     let current_index = 0;
     while (!played) {
       current_index = Math.floor(Math.random() * tracks.length);
-      if (this.state.played_history[current_index] === 0) {
+      if (this.state.playedHistory[current_index] === 0) {
         played = true;
-        let tmp_history = this.state.played_history;
+        let tmp_history = this.state.playedHistory;
         tmp_history[current_index] = 1;
-        this.setState({ played_history: tmp_history });
+        this.setState({ playedHistory: tmp_history });
       }
     }
 
@@ -107,15 +107,9 @@ export default class Player extends Component {
   }
 
   songDetails() {
-    const song = this.state.current_song;
+    const song = this.state.currentSong;
     return this.state.showSongName ?
       ` ${song.genre}: "${song.title}" ${song.artist} (${song.year})` : ``;
-  }
-
-  // render arrow keys tip
-  renderTip() {
-    return this.state.current_index === tracks.length / 2 ?
-      <h2 className="songDetails">Tip: Use arrow keys to navigate between songs.</h2> : '';
   }
 
   clickNextSong() {
@@ -123,7 +117,13 @@ export default class Player extends Component {
       this.setState({ playing: false, finished: true })
     } else {
       const current_song = this.randomTrack();
-      this.setState({ current_song, showSongName: false });
+      this.setState({ currentSong: current_song, showSongName: false });
+    }
+  }
+
+  showPlayedSongs() {
+    for (let i = 0; i < this.state.playedHistory.length; i++) {
+
     }
   }
 
@@ -145,8 +145,6 @@ export default class Player extends Component {
           <button className="showSong" onClick={() => this.setState({showSongName: !this.state.showSongName})}>Click to Show Song Name</button>
           <button className="nextSong" onClick={this.clickNextSong}>Next Song</button>
         </div>
-
-        { this.renderTip() }
 
         { this.state.finished ? 'Quiz finished' : '' }
         <h2 className="songDetails">{this.songDetails()}</h2>
