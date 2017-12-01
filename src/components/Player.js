@@ -32,10 +32,6 @@ export default class Player extends Component {
     this.clickNextSong = this.clickNextSong.bind(this);
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   return this.state.showSongName !== nextState.showSongName;
-  // }
-
   nextSongViaKeyPress(e) {
     if(e.keyCode === 37 || e.keyCode === 39) {
       window.location.reload(true)
@@ -127,7 +123,7 @@ export default class Player extends Component {
       this.setState({ playing: false, finished: true })
     } else {
       const current_song = this.randomTrack();
-      this.setState({ current_song });
+      this.setState({ current_song, showSongName: false });
     }
   }
 
