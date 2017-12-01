@@ -139,7 +139,7 @@ export default class Player extends Component {
         />
 
         <div className="control">
-          <button className="showSong" onClick={() => this.setState({showSongName: !this.state.showSongName})}>Click to Show Song Name</button>
+          <button className="showSong" onClick={() => this.setState({showSongName: !this.state.showSongName})}>Show Song</button>
           <button className="nextSong" onClick={this.clickNextSong}>Next Song</button>
         </div>
 
