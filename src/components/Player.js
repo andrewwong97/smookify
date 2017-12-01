@@ -29,13 +29,12 @@ export default class Player extends Component {
     }
 
     this.clickNextSong = this.clickNextSong.bind(this);
-    this.nextSongViaKeyPress = this.nextSongViaKeyPress.bind(this);
   }
 
   componentDidMount() {
     document.addEventListener('keyup', (e) => {
       if(e.keyCode === 32) {
-        this.setState({showSongName: !this.state.showSongName})
+        this.setState({ showSongName: !this.state.showSongName, playing: !this.state.playing })
       }
 
       if (e.keyCode === 39) {
@@ -55,7 +54,7 @@ export default class Player extends Component {
       maxResults: 5,
       key: youtube_api_key.youtube
     };
-    this.setState({ currentSong: track });
+    this.setState({ currentSong: track, playing: true });
     Youtube(`${track.title} ${track.artist} official`, options, (err, data) => this.setState({ytResults: data}));
   }
 
@@ -119,12 +118,6 @@ export default class Player extends Component {
     }
   }
 
-  nextSongViaKeyPress(e) {
-    if(e.charCode === 39 || e.keyCode === 39) {
-      this.clickNextSong();
-    }
-  }
-
   // showPlayedSongs() {
   //   for (let i = 0; i < this.state.playedHistory.length; i++) {
   //
@@ -147,7 +140,7 @@ export default class Player extends Component {
 
         <div className="control">
           <button className="showSong" onClick={() => this.setState({showSongName: !this.state.showSongName})}>Click to Show Song Name</button>
-          <button className="nextSong" onClick={this.clickNextSong} onKeyPress={this.nextSongViaKeyPress}>Next Song</button>
+          <button className="nextSong" onClick={this.clickNextSong}>Next Song</button>
         </div>
 
         { this.state.finished ? 'Quiz finished' : '' }
