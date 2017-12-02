@@ -128,7 +128,7 @@ export default class Player extends Component {
     const { playing } = this.state;
     return (
       <div className="Player">
-        <h1>Smookify <span style={{'fontWeight': '300'}}>|</span> Week 13</h1>
+        <h1>Smookify <span style={{'fontWeight': '300'}}>|</span> Week 14</h1>
         <ReactPlayer
           className="hideReactPlayer"
           ref={this.ref}
