@@ -1,0 +1,37 @@
+.Nav-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 20px 0 20px;
+}
+
+.Nav {
+    display: flex;
+    margin-left: auto;
+    flex-flow: row;
+    align-items: center;
+}
+
+.Nav li {
+    list-style-type: none;
+    margin: 10px;
+    font-size: 20pt;
+    text-decoration: none;
+    color: #1e3c72;
+    transition: color 150ms ease-in-out;
+}
+
+.Nav li:hover {
+    cursor: pointer;
+    color: #4b6cb7;
+}
+
+.Nav-wrapper h1 {
+    font-size: 32pt;
+    background: #4b6cb7;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #4b6cb7, #182848);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #4b6cb7, #182848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 300;
+}

@@ -16,7 +16,7 @@ const randomStartTime = () => {
   return Math.floor(Math.random()*60)+Math.floor(Math.random()*30);
 };
 
-export default class Player extends Component {
+export default class Quiz extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -127,8 +127,8 @@ export default class Player extends Component {
   render() {
     const { playing } = this.state;
     return (
-      <div className="Player">
-        <h1>Smookify <span style={{'fontWeight': '300'}}>|</span> Week 14</h1>
+      <div className="Quiz">
+        <h1>Quiz Week 14</h1>
         <ReactPlayer
           className="hideReactPlayer"
           ref={this.ref}

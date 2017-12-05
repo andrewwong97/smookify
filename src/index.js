@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './nav.css';
+import './quiz.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
