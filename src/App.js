@@ -28,6 +28,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
+                <h1>YouTube API has been deprecated and this app may no longer work.</h1>
 				<Player/>
         <img src="tip.png" alt="" className="tips"/>
 			  </div>

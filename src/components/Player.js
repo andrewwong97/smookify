@@ -3,8 +3,7 @@ import ReactPlayer from 'react-player';
 import * as Youtube from 'youtube-search';
 
 const tracks = require('../tracks.json');
-const youtube_api_key = require('../keys.json');
-
+const youtube_api_key = require('../keys.json'); // the keys were removed, so you need to add your own
 
 const createEmptyBooleanArray = () => {
   let a = [];
