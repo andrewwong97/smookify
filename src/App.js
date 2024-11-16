@@ -11,6 +11,7 @@ class App extends Component {
         if (!isChrome) {
             alert('Hey there! If Smookify doesn\'t play sound on your browser, consider using Google Chrome.');
         }
+        alert('Smookify is a music quiz app that uses the Youtube API to play songs. Due to YouTu be API\'s deprecation and/or API key limitations, this app may no longer work.');
 	}
 
     // adapted from https://stackoverflow.com/questions/11381673/detecting-a-mobile-browser
@@ -28,7 +29,6 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-                <h1>YouTube API has been deprecated and this app may no longer work.</h1>
 				<Player/>
         <img src="tip.png" alt="" className="tips"/>
 			  </div>
