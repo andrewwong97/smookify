@@ -7,9 +7,6 @@ import re
 import wikipedia
 import sys
 
-secret = {'user_id': '12171649066',
-          'playlist_id': '63et1p7vh9i9yByEGIuDl4'}
-
 ''' Run getTracks.py to get playlist track data '''
 
 
@@ -20,7 +17,7 @@ def get_spotify_tracks():
     r = requests.post('https://accounts.spotify.com/api/token',
                       data={'grant_type': 'client_credentials'},
                       headers={
-                          'Authorization': 'Basic YzUwNTVlYTZkMjY3NGFlYmJhY2U1ZTU5OTMwNTQ0Mjg6NTMzODE4NDZiNGQyNDYyZTkzMjg0ZDlhMTY0YjEwNGU='})
+                          'Authorization': 'Basic='}) # this will no longer work
 
     token_dict = json.loads(r.content)
 
@@ -91,8 +88,3 @@ if __name__ == '__main__':
             f.write(json.dumps(genre_test))
         print 'program exited with status 0', e.message
         sys.exit(0)
-
-
-
-
-
